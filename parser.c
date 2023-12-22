@@ -175,8 +175,8 @@ void compileUnsignedConstant(void) {
     eat(TK_NUMBER); break;
   case TK_CHAR:
     eat(TK_CHAR); break;
-  //case TK_STRING:
-    //eat(TK_STRING);break;
+  case TK_STRING:
+    eat(TK_STRING);break;
   case TK_IDENT:
     eat(TK_IDENT); break;
   default:
@@ -198,8 +198,8 @@ void compileConstant(void) {
   case TK_CHAR:
     eat(TK_CHAR);
     break;
-  //case TK_STRING:
-    //eat(TK_STRING);
+  case TK_STRING:
+    eat(TK_STRING);
   default:
     compileConstant2();
   }
@@ -210,6 +210,8 @@ void compileConstant2(void) {
   switch(lookAhead->tokenType){
   case TK_NUMBER:
     eat(TK_NUMBER); break;
+  case TK_FLOAT:
+    eat(TK_FLOAT); break;
   case TK_IDENT:
     eat(TK_IDENT); break;
   default:
@@ -222,6 +224,8 @@ void compileType(void) {
   switch(lookAhead->tokenType){
   case KW_INTEGER:
     eat(KW_INTEGER); break;
+  case KW_FLOAT:
+    eat(KW_FLOAT); break;
   case KW_CHAR:
     eat(KW_CHAR); break;
   case KW_ARRAY:
@@ -244,6 +248,8 @@ void compileBasicType(void) {
   switch (lookAhead->tokenType){
   case KW_INTEGER:
     eat(KW_INTEGER); break;
+  case KW_FLOAT:
+    eat(KW_FLOAT); break;
   case KW_CHAR:
     eat(KW_CHAR); break;
   default:
@@ -528,10 +534,10 @@ void compileFactor(void) {
   case TK_NUMBER:
   case TK_CHAR:
     compileUnsignedConstant(); break;
-  //case TK_STRING:
-      //eat(TK_STRING); break;
-  //case TK_FLOAT:
-      //eat(TK_FLOAT); break;
+  case TK_STRING:
+      eat(TK_STRING); break;
+  case TK_FLOAT:
+      eat(TK_FLOAT); break;
   default:
     error(ERR_INVALIDFACTOR, lookAhead->lineNo, lookAhead->colNo);
   }
